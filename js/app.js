@@ -3,7 +3,7 @@ var eCardApp = angular.module('eCardApp', [
     'ngRoute']);
 
 
-timerApp.config(['$routeProvider',
+eCardApp.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
             when('/page1',{
