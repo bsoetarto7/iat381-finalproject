@@ -4,12 +4,17 @@ eCardApp.service('eCardAppService', function() {
 		imgDatabase.push(newObj);
 		console.log(imgDatabase);
 	}
+	var getUserImage = function(){
+		return imgDatabase;
+	}
 
 
 	return {
 		setUserImage: setUserImage,
-
+		getUserImage: getUserImage
 
 
 	};
+
+
 })
