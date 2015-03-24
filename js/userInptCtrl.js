@@ -37,4 +37,22 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
     }, function (err) {
     	alert(err);
     });
+
+    $scope.errorMSG = false;
+
+
+
+    $scope.submit = function(){
+
+        if($scope.diff>0){
+            $scope.errorMSG = false;
+            $window.location.href = '#/page2';
+            TimerService.storeInputs();
+        }else{
+            $scope.errorMSG = true;
+        }
+
+        
+    }
+
 })

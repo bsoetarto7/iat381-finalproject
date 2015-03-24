@@ -12,7 +12,7 @@ eCardApp.config(['$routeProvider',
             }).
             when('/page2',{
                 // 
-                templateUrl:''
+                templateUrl:'rotation.html'
             }).
             when('/page3',{
                 // 
