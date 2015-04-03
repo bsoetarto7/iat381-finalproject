@@ -16,7 +16,7 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
         video.play();
  
         var button = document.getElementById('Camerabutton');
-        button.onclick = function () {
+        var takePicture = function () {
             var canvas = document.createElement('canvas');
             var w = 450;
             var h = 450;
@@ -31,8 +31,66 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
             
             eCardAppService.setUserImage(imgData);
             document.getElementById('cameraIMG').setAttribute( 'src', imgData);
+
+            document.getElementById('print').innerHTML= "working";
     
         }
+
+        window.addEventListener("devicemotion", function(event) {
+            // Process
+            // event.acceleration.x
+            // event.acceleration.y
+            // event.acceleration.z,
+            // event.accelerationIncludingGravity.x,
+            // event.accelerationIncludingGravity.y,
+            // event.accelerationIncludingGravity.z,
+            // event.rotationRate.alpha,
+            // event.rotationRate.beta,
+            // event.rotationRate.gamma,
+            // event.interval
+
+        
+        }, true);
+
+
+        var imageAvalible = false;
+        var currentTime = new Date().getTime() / 1000;
+        var timer = currentTime;
+        var imageArray = [];
+
+
+
+        currentTime = new Date().getTime() / 1000;
+        window.ondevicemotion = function(event) {
+            // Or you can process the same event values here
+            // document.getElementById('tes1').innerHTML= "x without gravity: "+event.acceleration.x;
+            // document.getElementById('tes2').innerHTML= "y without gravity:: "+event.acceleration.y;
+            // document.getElementById('tes3').innerHTML= "z without gravity:: "+event.acceleration.z;
+
+
+            // document.getElementById('test').innerHTML= "x: "+event.accelerationIncludingGravity.x;
+            // document.getElementById('test1').innerHTML= "y: "+event.accelerationIncludingGravity.y;
+            // document.getElementById('test2').innerHTML= "z: "+event.accelerationIncludingGravity.z;
+
+            // document.getElementById('test3').innerHTML= "alpha: "+event.rotationRate.alpha;
+            // document.getElementById('test4').innerHTML= "beta: "+event.rotationRate.beta;
+            // document.getElementById('test5').innerHTML= "gamma: "+event.rotationRate.gamma;
+
+            
+            if(Math.abs(event.rotationRate.beta) >=0.75){
+                imageAvalible = true;
+                console.log(timer);
+            }else{
+                if(imageAvalible && Math.abs(event.rotationRate.beta) < 0.1 
+                    && ((currentTime-timer)>5)){
+                    takePicture();
+                    imageAvalible = false;
+                    timer = currentTime;
+                }
+            }
+        }
+
+
  
     }, function (err) {
     	alert(err);
@@ -55,36 +113,41 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
         
     // }
 
-    window.addEventListener("devicemotion", function(event) {
-        // Process
-        // event.acceleration.x
-        // event.acceleration.y
-        // event.acceleration.z,
-        // event.accelerationIncludingGravity.x,
-        // event.accelerationIncludingGravity.y,
-        // event.accelerationIncludingGravity.z,
-        // event.rotationRate.alpha,
-        // event.rotationRate.beta,
-        // event.rotationRate.gamma,
-        // event.interval
+    // window.addEventListener("devicemotion", function(event) {
+    //     // Process
+    //     // event.acceleration.x
+    //     // event.acceleration.y
+    //     // event.acceleration.z,
+    //     // event.accelerationIncludingGravity.x,
+    //     // event.accelerationIncludingGravity.y,
+    //     // event.accelerationIncludingGravity.z,
+    //     // event.rotationRate.alpha,
+    //     // event.rotationRate.beta,
+    //     // event.rotationRate.gamma,
+    //     // event.interval
 
         
-    }, true);
+    // }, true);
 
-    window.ondevicemotion = function(event) {
-        // Or you can process the same event values here
-        document.getElementById('tes1').innerHTML= "x without gravity: "+event.acceleration.x;
-        document.getElementById('tes2').innerHTML= "y without gravity:: "+event.acceleration.y;
-        document.getElementById('tes3').innerHTML= "z without gravity:: "+event.acceleration.z;
+    // window.ondevicemotion = function(event) {
+    //     // Or you can process the same event values here
+    //     // document.getElementById('tes1').innerHTML= "x without gravity: "+event.acceleration.x;
+    //     // document.getElementById('tes2').innerHTML= "y without gravity:: "+event.acceleration.y;
+    //     // document.getElementById('tes3').innerHTML= "z without gravity:: "+event.acceleration.z;
 
 
-        document.getElementById('test').innerHTML= "x: "+event.accelerationIncludingGravity.x;
-        document.getElementById('test1').innerHTML= "y: "+event.accelerationIncludingGravity.y;
-        document.getElementById('test2').innerHTML= "z: "+event.accelerationIncludingGravity.z;
+    //     // document.getElementById('test').innerHTML= "x: "+event.accelerationIncludingGravity.x;
+    //     // document.getElementById('test1').innerHTML= "y: "+event.accelerationIncludingGravity.y;
+    //     // document.getElementById('test2').innerHTML= "z: "+event.accelerationIncludingGravity.z;
 
-        document.getElementById('test3').innerHTML= "alpha: "+event.rotationRate.alpha;
-        document.getElementById('test4').innerHTML= "beta: "+event.rotationRate.beta;
-        document.getElementById('test5').innerHTML= "gamma: "+event.rotationRate.gamma;
-    }
+    //     // document.getElementById('test3').innerHTML= "alpha: "+event.rotationRate.alpha;
+    //     // document.getElementById('test4').innerHTML= "beta: "+event.rotationRate.beta;
+    //     // document.getElementById('test5').innerHTML= "gamma: "+event.rotationRate.gamma;
+
+
+    //     if(Math.abs(event.accelerationIncludingGravity.x) >=0.75){
+    //         takePicture();
+    //     }
+    // }
 
 })
