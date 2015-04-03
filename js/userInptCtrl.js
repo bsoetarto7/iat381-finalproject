@@ -8,7 +8,7 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
     );
 
     var imageAvalible = false;
-    var imageMax;
+    var imageMax=0;
  
     navigator.getUserMedia({
       video: true
