@@ -78,32 +78,32 @@ eCardApp.controller('cubeRotation', function ($scope, eCardAppService){
     scene = new THREE.Scene();
     sceneCube = new THREE.Scene();
 
-    var crateTexture = THREE.ImageUtils.loadTexture('./crate.jpg');
+    // var crateTexture = THREE.ImageUtils.loadTexture('./crate.jpg');
 
-    // Initialize our mesh.
-    for (var i = 0; i < 9 * 9; i++) {
-      var geometry = new THREE.BoxGeometry(CRATE_WIDTH, CRATE_WIDTH, CRATE_WIDTH);
-      var material = new THREE.MeshPhongMaterial({
-        map: crateTexture
-      });
-      var mesh = new THREE.Mesh(geometry, material);
-      mesh.position.x = (i%9)*CRATE_WIDTH-(9/2)*CRATE_WIDTH;
-      mesh.position.z = Math.floor(i/9)*CRATE_WIDTH-(9/2)*CRATE_WIDTH;
-      // meshes.push(mesh);
-      // scene.add(mesh);
-    }
+    // // Initialize our mesh.
+    // for (var i = 0; i < 9 * 9; i++) {
+    //   var geometry = new THREE.BoxGeometry(CRATE_WIDTH, CRATE_WIDTH, CRATE_WIDTH);
+    //   var material = new THREE.MeshPhongMaterial({
+    //     map: crateTexture
+    //   });
+    //   var mesh = new THREE.Mesh(geometry, material);
+    //   mesh.position.x = (i%9)*CRATE_WIDTH-(9/2)*CRATE_WIDTH;
+    //   mesh.position.z = Math.floor(i/9)*CRATE_WIDTH-(9/2)*CRATE_WIDTH;
+    //   // meshes.push(mesh);
+    //   // scene.add(mesh);
+    // }
 
     // Add our mesh.
-    scene.add(mesh);
+    // scene.add(mesh);
 
-    // add subtle blue ambient lighting
-    var ambientLight = new THREE.AmbientLight(0x333333);
-    scene.add(ambientLight);
+    // // add subtle blue ambient lighting
+    // var ambientLight = new THREE.AmbientLight(0x333333);
+    // scene.add(ambientLight);
 
-    // directional lighting
-    var directionalLight = new THREE.DirectionalLight(0xffffff);
-    directionalLight.position.set(1, 1, 1).normalize();
-    scene.add(directionalLight);
+    // // directional lighting
+    // var directionalLight = new THREE.DirectionalLight(0xffffff);
+    // directionalLight.position.set(1, 1, 1).normalize();
+    // scene.add(directionalLight);
 
     urL = eCardAppService.getUserImage();
     var urls = [
