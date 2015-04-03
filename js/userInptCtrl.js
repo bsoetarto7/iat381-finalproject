@@ -73,6 +73,11 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
 
     window.ondevicemotion = function(event) {
         // Or you can process the same event values here
+        document.getElementById('tes1').innerHTML= "x without gravity: "+event.acceleration.x;
+        document.getElementById('tes2').innerHTML= "y without gravity:: "+event.acceleration.y;
+        document.getElementById('tes3').innerHTML= "z without gravity:: "+event.acceleration.z;
+
+
         document.getElementById('test').innerHTML= "x: "+event.accelerationIncludingGravity.x;
         document.getElementById('test1').innerHTML= "y: "+event.accelerationIncludingGravity.y;
         document.getElementById('test2').innerHTML= "z: "+event.accelerationIncludingGravity.z;
