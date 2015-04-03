@@ -6,6 +6,9 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
     navigator.mozGetUserMedia ||
     navigator.msGetUserMedia
     );
+
+    var imageAvalible = false;
+    var imageMax;
  
     navigator.getUserMedia({
       video: true
@@ -27,7 +30,7 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
 
 
             var imgData = canvas.toDataURL("img/png");
-            // console.log(imgData);
+          
             
             eCardAppService.setUserImage(imgData);
             document.getElementById('cameraIMG').setAttribute( 'src', imgData);
@@ -52,15 +55,6 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
         
         }, true);
 
-
-        var imageAvalible = false;
-        var currentTime = new Date().getTime() / 1000;
-        var timer = currentTime;
-        var imageArray = [];
-
-
-
-        currentTime = new Date().getTime() / 1000;
         window.ondevicemotion = function(event) {
             // Or you can process the same event values here
             // document.getElementById('tes1').innerHTML= "x without gravity: "+event.acceleration.x;
@@ -79,13 +73,12 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
             
             if(Math.abs(event.rotationRate.beta) >=0.75){
                 imageAvalible = true;
-                // console.log(timer);
             }else{
-                if(imageAvalible && Math.abs(event.rotationRate.beta) < 0.1){
+                if(imageAvalible && Math.abs(event.rotationRate.beta) < 0.05 imageMax<=4){
                     takePicture();
                     document.getElementById('test4').innerHTML= "beta: "+event.rotationRate.beta;
                     imageAvalible = false;
-                    timer = currentTime;
+                    imageMax++;
                 }
             }
         }
