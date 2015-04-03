@@ -8,6 +8,7 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
     );
 
     var imageAvalible = false;
+    var takingImage = false;
     var imageMax=0;
  
     navigator.getUserMedia({
@@ -69,18 +70,25 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
             // document.getElementById('test3').innerHTML= "alpha: "+event.rotationRate.alpha;
             // document.getElementById('test4').innerHTML= "beta: "+event.rotationRate.beta;
             // document.getElementById('test5').innerHTML= "gamma: "+event.rotationRate.gamma;
-
-            
-            if(Math.abs(event.rotationRate.beta) >=0.75){
-                imageAvalible = true;
-            }else{
-                if(imageAvalible && Math.abs(event.rotationRate.beta) < 0.05 && imageMax<=4){
-                    takePicture();
-                    document.getElementById('test4').innerHTML= "beta: "+event.rotationRate.beta;
-                    imageAvalible = false;
-                    imageMax++;
-                }
+            button.onclick = function(){
+                takingImage = true;
             }
+
+            if(takingImage){
+                if(Math.abs(event.rotationRate.beta) >=0.75){
+                    imageAvalible = true;
+                }else{
+                    if(imageAvalible && Math.abs(event.rotationRate.beta) < 0.05 && imageMax<=4){
+                        takePicture();
+                        document.getElementById('test4').innerHTML= "beta: "+event.rotationRate.beta;
+                        imageAvalible = false;
+                        imageMax++;
+                    }
+                }
+
+            }
+            
+            
         }
 
 
@@ -90,57 +98,5 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
     });
 
     $scope.errorMSG = false;
-
-
-
-    // $scope.submit = function(){
-
-    //     if($scope.diff>0){
-    //         $scope.errorMSG = false;
-    //         $window.location.href = '#/page2';
-    //         TimerService.storeInputs();
-    //     }else{
-    //         $scope.errorMSG = true;
-    //     }
-
-        
-    // }
-
-    // window.addEventListener("devicemotion", function(event) {
-    //     // Process
-    //     // event.acceleration.x
-    //     // event.acceleration.y
-    //     // event.acceleration.z,
-    //     // event.accelerationIncludingGravity.x,
-    //     // event.accelerationIncludingGravity.y,
-    //     // event.accelerationIncludingGravity.z,
-    //     // event.rotationRate.alpha,
-    //     // event.rotationRate.beta,
-    //     // event.rotationRate.gamma,
-    //     // event.interval
-
-        
-    // }, true);
-
-    // window.ondevicemotion = function(event) {
-    //     // Or you can process the same event values here
-    //     // document.getElementById('tes1').innerHTML= "x without gravity: "+event.acceleration.x;
-    //     // document.getElementById('tes2').innerHTML= "y without gravity:: "+event.acceleration.y;
-    //     // document.getElementById('tes3').innerHTML= "z without gravity:: "+event.acceleration.z;
-
-
-    //     // document.getElementById('test').innerHTML= "x: "+event.accelerationIncludingGravity.x;
-    //     // document.getElementById('test1').innerHTML= "y: "+event.accelerationIncludingGravity.y;
-    //     // document.getElementById('test2').innerHTML= "z: "+event.accelerationIncludingGravity.z;
-
-    //     // document.getElementById('test3').innerHTML= "alpha: "+event.rotationRate.alpha;
-    //     // document.getElementById('test4').innerHTML= "beta: "+event.rotationRate.beta;
-    //     // document.getElementById('test5').innerHTML= "gamma: "+event.rotationRate.gamma;
-
-
-    //     if(Math.abs(event.accelerationIncludingGravity.x) >=0.75){
-    //         takePicture();
-    //     }
-    // }
 
 })
