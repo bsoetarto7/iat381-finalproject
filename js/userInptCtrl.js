@@ -72,6 +72,7 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
             // document.getElementById('test5').innerHTML= "gamma: "+event.rotationRate.gamma;
             button.onclick = function(){
                 takingImage = true;
+                imageAvalible = true;
             }
 
             if(takingImage){
