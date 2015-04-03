@@ -73,7 +73,7 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
 
     window.ondevicemotion = function(event) {
         // Or you can process the same event values here
-        alert(event.accelerationIncludingGravity.x);
+        document.getElementById('test').innerHTML= event.accelerationIncludingGravity.x;
     }
 
 })
