@@ -74,7 +74,7 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
             if(Math.abs(event.rotationRate.beta) >=0.75){
                 imageAvalible = true;
             }else{
-                if(imageAvalible && Math.abs(event.rotationRate.beta) < 0.05 imageMax<=4){
+                if(imageAvalible && Math.abs(event.rotationRate.beta) < 0.05 && imageMax<=4){
                     takePicture();
                     document.getElementById('test4').innerHTML= "beta: "+event.rotationRate.beta;
                     imageAvalible = false;
