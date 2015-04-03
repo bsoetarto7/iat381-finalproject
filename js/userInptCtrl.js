@@ -76,6 +76,10 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
         document.getElementById('test').innerHTML= "x: "+event.accelerationIncludingGravity.x;
         document.getElementById('test1').innerHTML= "y: "+event.accelerationIncludingGravity.y;
         document.getElementById('test2').innerHTML= "z: "+event.accelerationIncludingGravity.z;
+
+        document.getElementById('test3').innerHTML= "alpha: "+event.rotationRate.alpha;
+        document.getElementById('test4').innerHTML= "beta: "+event.rotationRate.beta;
+        document.getElementById('test5').innerHTML= "gamma: "+event.rotationRate.gamma;
     }
 
 })
