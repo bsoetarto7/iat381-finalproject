@@ -81,8 +81,7 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
                 imageAvalible = true;
                 console.log(timer);
             }else{
-                if(imageAvalible && Math.abs(event.rotationRate.beta) < 0.1 
-                    && ((currentTime-timer)>5)){
+                if(imageAvalible && Math.abs(event.rotationRate.beta) < 0.1){
                     takePicture();
                     imageAvalible = false;
                     timer = currentTime;
