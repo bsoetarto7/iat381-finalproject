@@ -73,15 +73,16 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
             button.onclick = function(){
                 takingImage = true;
                 imageAvalible = true;
+
             }
 
             if(takingImage){
-                if(Math.abs(event.rotationRate.beta) >=0.75){
+                if(Math.abs(event.accelerationIncludingGravity.x) >=0.75){
                     imageAvalible = true;
                 }else{
-                    if(imageAvalible && Math.abs(event.rotationRate.beta) < 0.05 && imageMax<=4){
+                    if(imageAvalible && Math.abs(event.accelerationIncludingGravity.x) < 0.05 && imageMax<=4){
                         takePicture();
-                        document.getElementById('test4').innerHTML= "beta: "+event.rotationRate.beta;
+                        document.getElementById('test4').innerHTML= "beta: "+event.accelerationIncludingGravity.x;
                         imageAvalible = false;
                         imageMax++;
                     }
