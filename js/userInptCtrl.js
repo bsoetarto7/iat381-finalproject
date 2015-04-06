@@ -1,4 +1,4 @@
-eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
+eCardApp.controller('eCardUserInput', function ($scope, eCardAppService,$window){
 	
 	navigator.getUserMedia = (
     navigator.getUserMedia ||
@@ -55,9 +55,15 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
     }
 
     function sliceImage(image) {
+
         var canvas = document.createElement('canvas');
-        canvas.width = image.width / 3;
-        canvas.height = image.height;
+        if (image.width > image.height) {
+            canvas.width = image.height;
+            canvas.height = image.height;
+        } else {
+            canvas.width = image.width;
+            canvas.height = image.width;
+        }
 
         var context = canvas.getContext('2d');
 
@@ -66,12 +72,12 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
         var image1 = document.createElement('img');
         image1.src = canvas.toDataURL();
 
-        context.drawImage(image, -image.width/3, 0, image.width, image.height);
+        context.drawImage(image, -image.width, 0, image.width, image.height);
 
         var image2 = document.createElement('img');
         image2.src = canvas.toDataURL();
 
-        context.drawImage(image, -image.width/3*2, 0, image.width, image.height);
+        context.drawImage(image, -image.width*2, 0, image.width, image.height);
         var image3 = document.createElement('img');
         image3.src = canvas.toDataURL();
 
@@ -115,6 +121,17 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
 
 
         return retImage.src;
+    }
+
+    function getImage(name) {
+        return new Promise(function (resolve, reject) {
+            var image = document.createElement('img');
+            image.setAttribute('crossOrigin', 'anonymous');
+            image.onload = function () {
+                resolve(image);
+            }
+            image.src = name;
+        });
     }
 
     navigator.getUserMedia({
@@ -162,15 +179,7 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
                 });
             }            
 
-            function getImage(name) {
-                return new Promise(function (resolve, reject) {
-                    var image = document.createElement('img');
-                    image.onload = function () {
-                        resolve(image);
-                    }
-                    image.src = name;
-                });
-            }
+            
         }
 
         window.addEventListener("devicemotion", function(event) {
@@ -228,11 +237,81 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
 
 
             eCardAppService.setUserImage(resultArray);
-            document.getElementById('good').setAttribute( 'href', "#/page2");
+            document.getElementById('good').setAttribute( 'href', "#/page3");
 
         }else{
-            alert("Error please take 3 images");
+            alert("Error please take 4 images");
         }
+    }
+
+    $scope.flickrKey = "FlickrSearch";
+
+    $scope.flickrSearch = function () {
+        var flickr = new Flickr({
+          api_key: "228b253a143eb134bf3edebbdfa16a8a"
+        });
+
+        flickr.photos.search({
+          text: $scope.flickrKey +" panorama"
+        }, function(err, result) {
+          if(err) { throw new Error(err); }
+            var gallery = document.getElementById('gallery-flickr');
+                gallery.innerHTML = '';
+
+            for (i = 0; i < 5; i++) {
+                var imglink = "https://farm"+result.photos.photo[i].farm+".staticflickr.com/"+result.photos.photo[i].server+"/"+result.photos.photo[i].id+"_"+result.photos.photo[i].secret+"_b.jpg" 
+                var ele = document.createElement('img');
+                ele.setAttribute('src', imglink);
+                ele.addEventListener("click", function($event){
+                    // var resultArray = [];
+                    // resultArray[0]= event.target.getAttribute('src');
+                    // resultArray[1]= event.target.getAttribute('src');
+                    // resultArray[2]= event.target.getAttribute('src');
+                    // resultArray[3] = event.target.getAttribute('src');
+                    
+
+
+                    
+                    // console.log(event.target.getAttribute('src'));
+                    // sharedProperties.setImgData(event.target.getAttribute('src'));
+
+                    getImage(event.target.getAttribute('src')).then(function (image1) {
+                      
+                        return [image1];
+                    }).then(function (images) {
+                        // console.log(images[0]);
+                        
+                        var resultArray = sliceImage(images[0]);
+                     
+                        resultArray[0] = toSquare(resultArray[0]);
+                        resultArray[1] = toSquare(resultArray[1]);
+                        resultArray[2] = toSquare(resultArray[2]);
+
+                        resultArray[3] = event.target.getAttribute('src');
+
+
+                        eCardAppService.setUserImage(resultArray);
+                        document.getElementById('displayPanorama').setAttribute( 'src', event.target.getAttribute('src'));
+                        // $window.location.href = '#/page3';
+
+
+                        // stitched = stitchImagesGradient(images[0], images[1], 0.7, 10, 0.7);
+                        // stitched = stitchImagesGradient(stitched, images[2], 1.4, 10, 0.7);
+                        // stitched = stitchImagesGradient(stitched, images[3], 2.1, 10, 0.7);
+                        // stitched = stitchImagesGradient(stitched, images[4], 2.8, 10, 0.7);
+                       
+                        
+                    });
+                
+                });
+                
+                
+                gallery.appendChild(ele);
+            }
+
+            
+            
+        });
     }
 
 

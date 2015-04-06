@@ -10,6 +10,10 @@ img#displayPanorama{
 	height: 10%;
 }
 
+img.homedisplay{
+    width: 80%;
+}
+
 
 .glyphicon-refresh-animate {
     -animation: spin .7s infinite linear;

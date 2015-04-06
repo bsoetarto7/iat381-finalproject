@@ -1,30 +1,24 @@
-<div ng-controller="eCardUserInput">
-
+<div ng-controller="homeControl">
 		<div class="container">
-			<div class="row">
-				<div class="col-xs-12">
 
-						<video autoplay> </video>
-
-						<button id="Camerabutton">Take Pic</button>
-
-						<!-- <img id="cameraIMG" src =""/> -->
-
-<!-- 						<div ng-show="loading">
-							<button class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
-						</div> -->
+		<div class="errorMsg" ng-hide="myValue">
+			{{message}}
+		</div>
 
 
-	
-						<img id="displayPanorama" src =""/>
 
-						<button id="retake">Retake</button>
-						<a id="good" href="">Good</a>
-				        				   
+		<ul class="homeList" >
+			<li ng-repeat="each in imgShow">
+				<div class="row">
+					<div>
+					    <div ><img class="homeDisplay" ng-src="{{each.img}}"></div>
+					</div>
 				</div>
-
-			</div>
+			</li>
+		</ul>
 
 
 		</div>
+
+		<a href="#/page2">take picture</a>
 </div>

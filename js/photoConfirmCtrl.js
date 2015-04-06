@@ -32,6 +32,8 @@ eCardApp.controller('photoStiching', function ($scope, eCardAppService){
   // Considering this is JavaScript, the code inside this `init` function really
   // does not need to be in here. However, it allows us to keep our code clean so
   // whatever.
+
+  var id;
   function init() {
 
     // Initialize our renderer.
@@ -45,7 +47,9 @@ eCardApp.controller('photoStiching', function ($scope, eCardAppService){
     // height style properties set to the current window size).
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.autoClear = false;
-    document.body.appendChild( renderer.domElement );
+    var photorotation = document.getElementById('pictureRotation');
+    
+    photorotation.appendChild( renderer.domElement );
 
     // Initialize our object that will represent a projection matrix.
     camera = new THREE.PerspectiveCamera(
@@ -161,7 +165,7 @@ eCardApp.controller('photoStiching', function ($scope, eCardAppService){
     // // `requestAnimationFrame` calls a function only when it's appropriate. Here,
     // // we're asking `requestAnimationFrame` to call `animate`. This allows us to
     // // run our game loop.
-    requestAnimationFrame(animate);
+    id = requestAnimationFrame(animate);
 
     boxesTheta += time * 0.03;
 
@@ -179,6 +183,13 @@ eCardApp.controller('photoStiching', function ($scope, eCardAppService){
     renderer.render(sceneCube, cameraCube);
     renderer.render(scene, camera);
 
+  }
+
+  var homeButton = document.getElementById('toGoHome');
+
+  homeButton.onclick = function(){
+    cancelAnimationFrame(id);
+    scene = null;
   }
 
   init();
