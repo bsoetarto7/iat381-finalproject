@@ -24,10 +24,6 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService,$window)
     var retakeButton = document.getElementById('retake');
     var cameraButton = document.getElementById('Camerabutton');
 
-
-
-
-
     function stitchImagesGradient(image1, image2, offsetRatio, offsetQuotient, offsetFactor) {
         var canvas = document.createElement('canvas');
         var offset = image2.width*offsetRatio;
@@ -54,6 +50,29 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService,$window)
         return image;
     }
 
+    function scaleSquareImage(image, newDimensions) {
+        if (image.width !== image.height) { throw new Error('Must be square!'); }
+
+        var canvas = document.createElement('canvas');
+
+        canvas.width = newDimensions;
+        canvas.height = newDimensions;
+
+        var context = canvas.getContext('2d');
+        context.drawImage(image, 0, 0);
+
+
+        var retImage = document.createElement('img');
+        retImage.src = canvas.toDataURL();
+
+        console.log(retImage.width+" width " + retImage.height+" height ");
+
+
+        
+
+        return retImage.src;
+    }
+
     function sliceImage(image) {
 
         var canvas = document.createElement('canvas');
@@ -67,26 +86,30 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService,$window)
 
         var context = canvas.getContext('2d');
 
-        context.drawImage(image, 0, 0, image.width, image.height);
+      
+
+        context.drawImage(image, 0, 0, 450, 450);
 
         var image1 = document.createElement('img');
         image1.src = canvas.toDataURL();
 
-        context.drawImage(image, -image.width, 0, image.width, image.height);
+        context.drawImage(image, -image.width, 0, 450, 450);
 
         var image2 = document.createElement('img');
         image2.src = canvas.toDataURL();
 
-        context.drawImage(image, -image.width*2, 0, image.width, image.height);
+        // context.drawImage(image, -image.width*2, 0, image.width, image.height);
+        context.drawImage(image, -image.width*2, 0, 450, 450);
         var image3 = document.createElement('img');
         image3.src = canvas.toDataURL();
 
-        console.log(image1.width+" width " + image1.height+" height ");
-        console.log(image2.width+" width " + image2.height+" height ");
-        console.log(image3.width+" width " + image3.height+" height ");
+        // console.log(image1.width+" width " + image1.height+" height ");
+        // console.log(image2.width+" width " + image2.height+" height ");
+        // console.log(image3.width+" width " + image3.height+" height ");
 
         return [image1, image2, image3];
     }
+
 
     function toSquare(image) {
         var canvas = document.createElement('canvas');
@@ -244,7 +267,7 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService,$window)
         }
     }
 
-    $scope.flickrKey = "FlickrSearch";
+    $scope.flickrKey = "Flickr Search";
 
     $scope.flickrSearch = function () {
         var flickr = new Flickr({
@@ -262,46 +285,36 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService,$window)
                 var imglink = "https://farm"+result.photos.photo[i].farm+".staticflickr.com/"+result.photos.photo[i].server+"/"+result.photos.photo[i].id+"_"+result.photos.photo[i].secret+"_b.jpg" 
                 var ele = document.createElement('img');
                 ele.setAttribute('src', imglink);
+
                 ele.addEventListener("click", function($event){
-                    // var resultArray = [];
-                    // resultArray[0]= event.target.getAttribute('src');
-                    // resultArray[1]= event.target.getAttribute('src');
-                    // resultArray[2]= event.target.getAttribute('src');
-                    // resultArray[3] = event.target.getAttribute('src');
                     
+                    var targetString = event.target.getAttribute('src');
 
+                    console.log(targetString);
 
+                    // var targetString = 'https://farm8.staticflickr.com/7631/16867787219_c6a3ee6019_b.jpg'; 
                     
                     // console.log(event.target.getAttribute('src'));
                     // sharedProperties.setImgData(event.target.getAttribute('src'));
 
-                    getImage(event.target.getAttribute('src')).then(function (image1) {
-                      
-                        return [image1];
-                    }).then(function (images) {
+                    getImage(targetString).then(function (image0){
+                        return [image0];
+                    }).then(function (image){
                         // console.log(images[0]);
                         
-                        var resultArray = sliceImage(images[0]);
+                        var resultArray = sliceImage(image[0]);
                      
-                        resultArray[0] = toSquare(resultArray[0]);
-                        resultArray[1] = toSquare(resultArray[1]);
-                        resultArray[2] = toSquare(resultArray[2]);
-
-                        resultArray[3] = event.target.getAttribute('src');
-
+                        resultArray[0] = scaleSquareImage(resultArray[0], 450);
+                        resultArray[1] = scaleSquareImage(resultArray[1], 450);
+                        resultArray[2] = scaleSquareImage(resultArray[2], 450);
 
                         eCardAppService.setUserImage(resultArray);
                         document.getElementById('displayPanorama').setAttribute( 'src', event.target.getAttribute('src'));
-                        // $window.location.href = '#/page3';
+                        $window.location.href = '#/page3';
 
-
-                        // stitched = stitchImagesGradient(images[0], images[1], 0.7, 10, 0.7);
-                        // stitched = stitchImagesGradient(stitched, images[2], 1.4, 10, 0.7);
-                        // stitched = stitchImagesGradient(stitched, images[3], 2.1, 10, 0.7);
-                        // stitched = stitchImagesGradient(stitched, images[4], 2.8, 10, 0.7);
-                       
-                        
+                                            
                     });
+                   
                 
                 });
                 

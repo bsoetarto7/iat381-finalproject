@@ -93,7 +93,12 @@ eCardApp.controller('photoStiching', function ($scope, eCardAppService){
     directionalLight.position.set(1, 1, 1).normalize();
     scene.add(directionalLight);
 
+
+
     urL = eCardAppService.getUserImage();
+    
+    console.log(String(urL[0][2]));
+
     var urls = [
       String(urL[0][2]),
       String(urL[0][0]),
