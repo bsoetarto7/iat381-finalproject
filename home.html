@@ -1,36 +1,24 @@
-<div ng-controller="eCardUserInput">
-
+<div ng-controller="homeControl">
 		<div class="container">
-			<div class="row">
-				<div class="col-xs-12">
-					<div ng-hide="showImage">
-						<video autoplay> </video>
-						<button id="Camerabutton" value="takepic"></button>
 
-						<img id="cameraIMG" src =""/>
+		<div class="errorMsg" ng-hide="myValue">
+			{{message}}
+		</div>
+
+
+
+		<ul class="homeList" >
+			<li ng-repeat="each in imgShow">
+				<div class="row">
+					<div>
+					    <div ><img class="homeDisplay" ng-src="{{each.img}}"></div>
 					</div>
-					<p id="tes1"></p>
-					<p id="tes2"></p>
-					<p id="tes3"></p>
-
-
-					<p id="test"></p>
-					<p id="test1"></p>
-					<p id="test2"></p>
-
-					<p id="test3"></p>
-					<p id="test4"></p>
-					<p id="test5"></p>
-
-					<p id="print"></p>
-						<!-- <p class="col-xs-12 msg-red" ng-show="errorMSG">*Requires A Further Due Date </p> -->
-				        <a href="#/page2">Submit</a>
-				   
-
 				</div>
-
-			</div>
+			</li>
+		</ul>
 
 
 		</div>
+
+		<a href="#/page2">take picture</a>
 </div>
