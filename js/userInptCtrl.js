@@ -25,9 +25,6 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
     var cameraButton = document.getElementById('Camerabutton');
 
 
-
-
-
     function stitchImagesGradient(image1, image2, offsetRatio, offsetQuotient, offsetFactor) {
         var canvas = document.createElement('canvas');
         var offset = image2.width*offsetRatio;
@@ -56,8 +53,8 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
 
     function sliceImage(image) {
         var canvas = document.createElement('canvas');
-        canvas.width = image.width / 3;
         canvas.height = image.height;
+        canvas.width = image.height;
 
         var context = canvas.getContext('2d');
 
@@ -66,14 +63,18 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
         var image1 = document.createElement('img');
         image1.src = canvas.toDataURL();
 
-        context.drawImage(image, -image.width/3, 0, image.width, image.height);
+        context.drawImage(image, -image.height, 0, image.width, image.height);
 
         var image2 = document.createElement('img');
         image2.src = canvas.toDataURL();
 
-        context.drawImage(image, -image.width/3*2, 0, image.width, image.height);
+        context.drawImage(image, -image.height*2, 0, image.width, image.height);
         var image3 = document.createElement('img');
         image3.src = canvas.toDataURL();
+
+
+
+
 
         console.log(image1.width+" width " + image1.height+" height ");
         console.log(image2.width+" width " + image2.height+" height ");
@@ -124,9 +125,10 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
         var video = document.querySelector('video');
         video.src = window.URL.createObjectURL(localMediaStream);
         video.play();
+
+
        
         var takePicture = function () {
-
             var canvas = document.createElement('canvas');
             var w =450;
             var h = 450;
@@ -134,6 +136,8 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
             canvas.height = h;
             var ctx = canvas.getContext('2d');
             ctx.drawImage(video, 0, 0, w, h);
+
+            
 
             var imgData = canvas.toDataURL("img/png");
 
@@ -218,6 +222,9 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
     }
 
     goodButton.onclick = function(){
+
+        $scope.loading = false;
+
         if(imageMax == 4){
             var resultArray = sliceImage(stitched);
             resultArray[0] = toSquare(resultArray[0]);
@@ -233,6 +240,9 @@ eCardApp.controller('eCardUserInput', function ($scope, eCardAppService){
         }else{
             alert("Error please take 3 images");
         }
+
+
+        console.log($scope.loading);
     }
 
 
