@@ -12,11 +12,11 @@ eCardApp.config(['$routeProvider',
             }).
             when('/page2',{
                 // 
-                templateUrl:'photoConfirm.html'
+                templateUrl:'takingPicture.html'
             }).
             when('/page3',{
                 // 
-                templateUrl:''
+                templateUrl:'photoConfirm.html'
             }).
             otherwise({
                 redirectTo: '/page1'
