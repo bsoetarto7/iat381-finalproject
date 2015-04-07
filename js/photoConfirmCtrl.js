@@ -132,10 +132,10 @@ eCardApp.controller('photoStiching', function ($scope, eCardAppService){
                 var urls = [
                   String(urL[index].key[2]),
                   String(urL[index].key[0]),
-                  '../img/white.jpg',
-                  '../img/white.jpg',
+                  '../img/white',
+                  '../img/white',
                   String(urL[index].key[1]),
-                  '../img/white.jpg',
+                  '../img/white',
                 ];
                     var textureCube = THREE.ImageUtils.loadTextureCube(urls);
                     textureCube.format = THREE.RGBFormat;
