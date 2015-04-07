@@ -1,24 +1,31 @@
+<!-- This is where the list of panorama images users take the picture -->
+
+<!-- Navbar -->
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-2">
+			</div>
+			<div class="col-xs-8">
+				<div class="head">Card</div>
+			</div>
+			<div class="col-xs-1">
+				<a href="#/page2"><img class="plus-button" src="img/plus-white.png"  width="26" /></a>
+			</div>
+
+		</div>
+	</div>
+</nav>
+
+<!-- List of Panorama Pictures -->
 <div ng-controller="homeControl">
-		<div class="container">
-
-		<div class="errorMsg" ng-hide="myValue">
-			{{message}}
+	<div class="container home">
+		<div id="MSG" class="errorMsg">
 		</div>
-
-
-
-		<ul class="homeList" >
-			<li ng-repeat="each in imgShow">
-				<div class="row">
-					<div>
-					    <div ><img class="homeDisplay" ng-src="{{each.img}}"></div>
-					</div>
-				</div>
-			</li>
-		</ul>
-
-
-		</div>
-
-		<a href="#/page2">take picture</a>
+	</div>
+	<div id="show">
+	</div>
+	<div class="center">
+		<a class="normalButton takePic" href="#/page2">Take Picture</a>
+	</div>
 </div>
