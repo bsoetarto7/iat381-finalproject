@@ -1,46 +1,58 @@
+<!-- This is the page for taking picture displayed -->
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-2">
+				<a href="#/page1"><img class="back-button" src="img/home.png"  width="28" /></a>
+			</div>
+			<div class="col-xs-8">
+				<div class="head">Card</div>
+			</div>
+			<div class="col-xs-1">
+				<!--   <a href="#/page2"><img class="plus-button" src="img/plus-white.png"  width="26" /></a> -->
+			</div>
+
+		</div>
+	</div>
+</nav>
+
+
 <div ng-controller="eCardUserInput">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
 
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-12">
-
-						<video autoplay> </video>
-
-						<button id="Camerabutton">Take Pic</button>
-
-						<!-- <img id="cameraIMG" src =""/> -->
-
-<!-- 						<div ng-show="loading">
-							<button class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
-						</div> -->
-
-
-	
-						<img id="displayPanorama" src =""/>
-
-						<button id="retake">Retake</button>
-						<a id="good" href="">Good</a>
-				        				   
-				</div>
-
-			</div>
-
-
-		</div>
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-12">
-					<input type="text" name="input" ng-model="flickrKey" ng-change="flickrSearch()">
-					<div id="gallery-flickr" class="thumbnails">
-						
+			<!-- Camera display -->
+				<video autoplay> </video>
+				<div class="center">
+					<div class="Cambuttons">
+						<button id="Camerabutton">Start Taking Picture</button>
 					</div>
+				</div>
 
-					
-				        				   
+				<img id="displayPanorama" src =""/>
+				<div class="buttons">
+					<button id="retake">Retake</button>
+					<a id="good" href="">Good</a>
 				</div>
 
 			</div>
-
-
 		</div>
+	</div>
+
+<!-- This is where the flickr search bar, users can search flickr images for inspiration -->
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="center">
+					<p class="flickr"> Search for inspiration!! </p>
+					<input type="text" name="input" ng-model="flickrKey" ng-change="flickrSearch()" class="searchFlickr">
+					<div id="gallery-flickr" class="thumbnails">
+					</div>		
+				</div>
+
+
+			</div>
+		</div>
+	</div>
 </div>
